@@ -285,9 +285,9 @@ s3://{bucket}/input/{workspaceId}/{emailId}/{fileName}_{fileId}.csv
 
 Example CSV:
 ```csv
-address,city,state,zip
-123 Main St,New York,NY,10001
-456 Oak Ave,Los Angeles,CA,90001
+input1,input2,input3
+test,test2,test3
+test4,test5,test6
 ```
 
 ### Output Files
@@ -547,17 +547,12 @@ mvn clean package
 
 # Build Docker image
 docker build -t temporal-worker:latest .
-
-# Or build with custom registry
-docker build \
-  --build-arg REGISTRY_PROXY=your-registry.com/docker-virtual \
-  -t temporal-worker:0.1 .
 ```
 
 **Docker Image Details:**
 - **Base Image**: `bellsoft/liberica-openjdk-alpine:21`
 - **User**: Non-root user (`nonroot`)
-- **Working Directory**: `/opt/bulk-processor`
+- **Working Directory**: `/opt/temporal-worker`
 - **Exposed Port**: `8080`
 - **JVM Configuration**: G1GC with optimized heap settings (2GB-4GB)
 
