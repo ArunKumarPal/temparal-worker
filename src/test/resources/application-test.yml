@@ -1,0 +1,6 @@
+
+request-config:
+  batch-size: 4
+
+bulk.processor.min.chunk.size: 10485760
+bulk.processor.min.lines.per.chunk: 100000

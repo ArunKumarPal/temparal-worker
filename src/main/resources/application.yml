@@ -1,0 +1,97 @@
+micronaut:
+  application:
+    name: temporal-worker
+  http:
+    client:
+      read-timeout: 30s
+      connection-pool-idle-timeout: 60s
+      connect-ttl: 30s
+      alpn-modes: http/1.1
+      pool:
+        enabled: true
+        acquire-timeout: 30s
+        max-concurrent-http1-connections: 100
+        max-connections: 100
+        max-pending-connections: 50
+  management:
+    endpoints:
+      health:
+        enabled: true
+        sensitive: false
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+endpoints:
+  prometheus:
+    sensitive: false
+
+aws:
+  env: ${AWS_ENV:`dev`}
+  region: ${AWS_REGION:`us-east-1`}
+
+request-config:
+  batch-size: ${BATCH_SIZE:1000}
+
+s3-client:
+  max-concurrency: ${MAX_CONCURRENCY:50}
+  max-pending-connection-acquires: ${MAX_PENDING_CONNECTION_ACQUIRES:10000}
+  connection-acquisition-timeout: ${CONNECTION_ACQUISITION_TIMEOUT:60}
+
+report-config:
+  vendor-name: ${VENDOR_NAME:`Precisely Software Inc.`}
+  software-name: ${SOFTWARE_NAME:`Bulk API Geocode`}
+  software-version: ${SOFTWARE_VERSION:`1.00.00.O`}
+  customer-name: ${CUSTOMER_NAME:` `}
+  list-name: ${CUSTOMER_NAME_ID:` `}
+  total-list: ${TOTAL_LIST:` `}
+  mailing-address: ${MAILING_ADDRESS:` `}
+
+image.version: ${IMAGE_VERSION:local}
+
+kafka:
+  health:
+    enabled: false
+  bootstrap:
+    servers: ${KAFKA_BOOTSTRAP_BROKERS:`localhost:9092`}
+  security:
+    protocol: SASL_SSL
+  sasl:
+    mechanism: AWS_MSK_IAM
+    client:
+      callback:
+        handler:
+          class: software.amazon.msk.auth.iam.IAMClientCallbackHandler
+    jaas:
+      config: software.amazon.msk.auth.iam.IAMLoginModule required;
+  producers:
+    default:
+      bootstrap:
+        servers: ${KAFKA_BOOTSTRAP_BROKERS:`localhost:9092`}
+      retries: ${KAFKA_PRODUCER_RETIRES:`3`}
+      acks: ${KAFKA_ACK_LEVEL:`all`}
+      reconnect:
+        backoff:
+          ms: 30000
+          max:
+            ms: 90000
+      max:
+        block:
+          ms: 5000
+    headers:
+      type: SparkEvent
+      schemaVersion: ${ROYALTY_SCHEMA_VERSION:`1`}
+
+temporal:
+  hostport: ${TEMPORAL_HOSTPORT:`127.0.0.1:7233`}
+  namespace: ${TEMPORAL_NAMESPACE:default}
+  queue: ${TEMPORAL_QUEUE:bulk-processing-queue}
+  client-cert:
+    key: ${TEMPORAL_CLIENT_CERT_KEY:}
+    pem: ${TEMPORAL_CLIENT_CERT_PEM:}
+  encryption:
+    enabled: ${TEMPORAL_ENCRYPTION_ENABLED:false}
+
+encryption:
+  secret: ${ENCRYPTION_SECRET:`default`}

@@ -1,0 +1,23 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>dd.trace_id</includeMdcKeyName>
+            <includeMdcKeyName>dd.span_id</includeMdcKeyName>
+            <includeMdcKeyName>req_id</includeMdcKeyName>
+            <includeMdcKeyName>workspace_id</includeMdcKeyName>
+            <includeMdcKeyName>query_id</includeMdcKeyName>
+            <includeMdcKeyName>job_id</includeMdcKeyName>
+            <includeMdcKeyName>user</includeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <logger name="io.micronaut.security" level="ERROR"/>
+    <logger name="io.github.resilience4j" level="ERROR"/>
+    <logger name="io.micronaut.http.client" level="ERROR"/>
+    <logger name="org.apache.kafka" level="ERROR"/>
+    <logger name="io.temporal.internal.worker.MultiThreadedPoller" level="ERROR"/>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
