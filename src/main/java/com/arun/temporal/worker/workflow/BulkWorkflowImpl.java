@@ -26,11 +26,11 @@ import static com.arun.temporal.worker.constant.Constants.*;
 import static com.arun.temporal.worker.util.Util.*;
 
 
-public class BulkGeoAddressingWorkflowImpl implements BulkGeoAddressingWorkflow {
-    private static final Logger logger = LoggerFactory.getLogger(BulkGeoAddressingWorkflowImpl.class);
+public class BulkWorkflowImpl implements BulkWorkflow {
+    private static final Logger logger = LoggerFactory.getLogger(BulkWorkflowImpl.class);
     private final BulkActivities bulkActivities;
 
-    public BulkGeoAddressingWorkflowImpl() {
+    public BulkWorkflowImpl() {
         ActivityOptions options = ActivityOptions.newBuilder()
                 .setStartToCloseTimeout(Duration.ofMinutes(MAX_ACTIVITY_RUN_TIME_OUT))
                 .setHeartbeatTimeout(Duration.ofMinutes(5))

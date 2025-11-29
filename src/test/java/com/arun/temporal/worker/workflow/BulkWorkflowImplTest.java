@@ -22,12 +22,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BulkGeoAddressingWorkflowImplTest {
+class BulkWorkflowImplTest {
     @Mock
     BulkActivities bulkActivities;
     @Mock
     Promise<ChunkProcessingResult> promise;
-    BulkGeoAddressingWorkflowImpl workflow;
+    BulkWorkflowImpl workflow;
     private MockedStatic<Workflow> workflowStatic;
     private WorkflowInfo mockWorkflowInfo;
     private MockedStatic<Async> asyncMock;
@@ -44,8 +44,8 @@ class BulkGeoAddressingWorkflowImplTest {
         workflowStatic.when(Workflow::getInfo)
                 .thenReturn(mockWorkflowInfo);
 
-        workflow = new BulkGeoAddressingWorkflowImpl();
-        Field field = BulkGeoAddressingWorkflowImpl.class.getDeclaredField("bulkActivities");
+        workflow = new BulkWorkflowImpl();
+        Field field = BulkWorkflowImpl.class.getDeclaredField("bulkActivities");
         field.setAccessible(true);
         field.set(workflow, bulkActivities);
         asyncMock = mockStatic(Async.class);

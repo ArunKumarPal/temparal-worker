@@ -9,7 +9,7 @@ import io.temporal.workflow.WorkflowMethod;
  * Workflow interface for processing bulk files using Temporal.
  */
 @WorkflowInterface
-public interface BulkGeoAddressingWorkflow {
+public interface BulkWorkflow {
     /**
      * Executes the bulk file processing workflow.
      *
